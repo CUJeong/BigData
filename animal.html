@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>머신러닝 웹사이트</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #ffffff;
+        }
+
+        .file-upload {
+            padding: 15% 3%;
+            margin: 0 auto;
+            border-radius: 10px;
+            border: solid 1.5px #f6f7fa;
+            background-color: #f6f7fa;
+        }
+
+        .file-upload-btn {
+            width: 100%;
+            margin: 0;
+            color: #fff;
+            background: #1FB264;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            border-bottom: 4px solid #15824B;
+            transition: all .2s ease;
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .file-upload-btn:hover {
+            background: #1AA059;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-btn:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+
+        .file-upload-content {
+            display: none;
+            text-align: center;
+            width: 600;
+            width: 600;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .image-upload-wrap {
+            width: 60%;
+            margin: 0 auto;
+            position: relative;
+            object-fit: contain;
+            border-radius: 10px;
+            border: dashed 1.5px #35465d;
+            background-color: #ffffff;
+        }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            background-color: #35465d82;
+            border: 1.5px dashed #ffffff;
+        }
+
+        .image-title-wrap {
+            padding: 0 15px 15px 15px;
+            color: #222;
+        }
+
+        .drag-text {
+            text-align: center;
+        }
+
+        .drag-text h3 {
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .file-upload-image {
+            max-height: 450px;
+            max-width: 350px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .remove-image {
+            width: 200px;
+            margin: 0;
+            color: #fff;
+            background: #cd4535;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            border-bottom: 4px solid #b02818;
+            transition: all .2s ease;
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .remove-image:hover {
+            background: #c13b2a;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .remove-image:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+
+        .navbar-light .navbar-brand {
+            font-family: NanumSquareR;
+            line-height: 1.68;
+            text-align: left;
+            color: #35465d; 
+        }
+
+        .navbar-light .navbar-toggler {
+            border-color: #ffffff;
+        }
+
+        .section {
+            margin-top: 100px;
+        }
+
+        #label-container {
+            margin-top: 50px;
+        }
+
+        .title {
+            font-family: NanumSquareR;
+            line-height: 1.67;
+            text-align: center;
+            color: #35465d;
+        }
+
+        .subtitle {
+            font-family: NanumSquareR;
+            line-height: 1.53;
+            text-align: center;
+            color: #35465d;
+        }
+
+        /* On screens that are 600px or less, set the background color to olive */
+        @media screen and (max-width: 600px) {
+        html {
+            font-size: 10px;
+        }
+            .navbar-brand {
+                font-size: 2rem;
+            }
+        }
+
+        .upload {
+            width: 20%;
+        }
+
+        .upload-text {
+            width: 58%;
+            font-family: NanumSquareR;
+            font-size: 1.5rem;
+            line-height: 1.53;
+            text-align: center;
+            color: #35465d;
+            margin: 0 auto;
+        }
+
+        table {
+            margin: 0 auto;
+            text-align: left;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <section class="section">
+        <h1 class="title">인공지능 동물상 테스트</h1>
+        <h2 class="subtitle">이 사람은 어떤 동물과 닮았을까?</h2>
+    </section>
+    <br/>
+    <br/>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <div class="container file-upload">
+        <div class="image-upload-wrap">
+            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+            <div class="drag-text">
+                <img src="https://cdn.pixabay.com/photo/2016/01/03/00/43/upload-1118929_1280.png" class="mt-5 pt-5 upload">
+                <h3 class="mb-5 pb-5 pt-4  upload-text">얼굴 사진을 올려놓거나 눌러서 업로드하세요!</h3>
+            </div>
+        </div>
+        <div class="file-upload-content">
+            <img class="file-upload-image" id="face-image" src="#" alt="your image"/>
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                    <span class="image-title">Uploaded Image</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="webcam-container"></div>
+    <div id="label-container"></div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+                    $('.image-title').html(input.files[0].name);
+
+                    setTimeout(predict, 100);
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+
+            // 이전 결과 제거 
+            labelContainer.innerHTML = "";
+            for (let i = 0; i < maxPredictions; i++) {
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>
+    <script type="text/javascript">
+        // 구글 티처블 머신으로 생성한 머신러닝 모델 링크를 아래에 붙여넣기!!
+        const URL = "https://teachablemachine.withgoogle.com/models/B43YrtOHg/";
+        let model, labelContainer, maxPredictions;
+
+        // 이미지 모델 불러오기
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+        }
+
+        // 분석하기
+        async function predict() {
+            // predict can take in an image, video or canvas html element
+            var image = document.getElementById("face-image");
+            const prediction = await model.predict(image, false);
+            for (let i = 0; i < maxPredictions; i++) {
+                const predictValue = parseInt((parseFloat(prediction[i].probability.toFixed(2)) * 100));
+                var v_temp = "<table><tr><td><h3 class='subtitle'>"+prediction[i].className+"</h3></td><td style='width:240px; padding-left:20px; padding-right:20px'><div style='border-radius: 5px; background-color:"+ f_ranColor() +"; width: "+ (predictValue * 2)+"px; height: 20px'></div></td><td><h3 class='subtitle'> "+ f_numberFormat(predictValue) +" %<h3></td></tr></table>";
+                labelContainer.childNodes[i].innerHTML = v_temp;
+            }
+        }
+
+        // 숫자 자리수 맞춰주기
+        function f_numberFormat(num){
+            if(num < 10){
+                return "&nbsp;&nbsp;" + num;
+            }else if(num < 100){
+                return "&nbsp;" + num;
+            }else{
+                return "" + num;
+            }
+        }
+
+        // 랜덤 색상 만들기
+        function f_ranColor(){
+            // rgb(255, 255, 255) 형태로 표현
+            var v_colorRed = Math.round((Math.random()*155)) + 100;
+            var v_colorGreen = Math.round((Math.random()*155)) + 100;
+            var v_colorBlue = Math.round((Math.random()*155)) + 100;
+            return "rgb("+v_colorRed+","+v_colorGreen+","+v_colorBlue+")";
+        }
+
+        // 화면 준비되면 모델 자동으로 불러오기
+        window.addEventListener('load', (e) => {
+            init();
+        });
+    </script>
+
+</body>
+
+<!-- 
+    이미지 업로드 저작권 설명
+
+    Copyright (c) 2020 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+</html>
